@@ -13,6 +13,7 @@ export class GridTileComponent implements OnInit {
   @Input() rowNum!: number;
 
   tileLetter!: string;
+  rowWord!: string;
   letterStatus!: string;
 
   guessedWordsList$ = this.mainService.guessedWordsList$;
@@ -35,16 +36,33 @@ export class GridTileComponent implements OnInit {
         return word ? word : "";
       })
     ).subscribe(guessedWord => {
-      this.tileLetter = guessedWord[this.tileNum]
+      this.rowWord = guessedWord;
+      this.tileLetter = guessedWord[this.tileNum];
     })
 
     // compare letter to the current, real, word's letter in this index
     this.currentWord$.subscribe(currentWord => {
-      if(this.tileLetter === currentWord[this.tileNum]) 
+      if(this.tileLetter === currentWord[this.tileNum])
         this.letterStatus = "correct";
-      else if(currentWord.includes(this.tileLetter)) 
-        this.letterStatus = "close";
-      else if(!currentWord.includes(this.tileLetter) && !!this.tileLetter) 
+      else if(currentWord.includes(this.tileLetter)) {
+        let occurrences = 0;
+        let guessedWordIdxs = [];
+        for (let i=0; i<this.rowWord.length; i++) {
+          if (currentWord[i] === this.tileLetter && this.rowWord[i] !== currentWord[i]) {
+              occurrences++;
+          }
+          else if (this.rowWord[i] === this.tileLetter) {
+            guessedWordIdxs.push(i);
+          }
+        }
+
+        if (guessedWordIdxs.indexOf(this.tileNum) < occurrences) {
+            this.letterStatus = "close";
+        } else {
+          this.letterStatus = "incorrect";
+        }
+      }
+      else if(!currentWord.includes(this.tileLetter) && !!this.tileLetter)
         this.letterStatus = "incorrect";
       else this.letterStatus = "";
     })

@@ -289,8 +289,15 @@ export class MainService {
     // if we guess the correct word or we are making our last submit / guess - the game is done
     if(!!gameResult || guessAttemptNum === GameRules.RowAmount) {
       // open dialog box with stats, congrats message, update local storage with win, games played, set a new word, reset state
-      this.resetState();
-      this.generateWord();
+      // this.resetState();
+      // this.generateWord();
+      this._state$.next({
+        guessedWordsList: [...guessedWordsList, guessedWord],
+        guessedWord: "",
+        currentWord: currentWord,
+        currentRow: currentRow + 1
+      });
+
       this.submitGame(gameResult, guessAttemptNum);
 
       this.openStatsDialog();
@@ -309,6 +316,11 @@ export class MainService {
         currentRow: nextRow
       });
     }
+  }
+
+  public newGame() {
+      this.resetState();
+      this.generateWord();
   }
 
   private openStatsDialog(): void {

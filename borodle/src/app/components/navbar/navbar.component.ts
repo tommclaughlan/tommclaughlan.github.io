@@ -16,8 +16,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private mainService: MainService,
-    private matIconRegistry: MatIconRegistry, 
-    private domSanitizer: DomSanitizer, 
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
     private dialog: MatDialog
   ) {
     this.matIconRegistry.addSvgIcon(
@@ -38,6 +38,11 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  public newGame(event: any) {
+    this.mainService.newGame();
+    event.originalTarget.parentNode.parentNode.blur();
+  }
 
   public openTutorialDialog() {
     this.dialog.open(TutorialDialogComponent, {
