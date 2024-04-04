@@ -7,7 +7,7 @@ interface IChartData {
   Frequency: number;
 }
 
-type guessAmount = {[guessAmount: number]: number} 
+type guessAmount = {[guessAmount: number]: number}
 
 const initialChartData: IChartData[] = [
   {GuessAmount: "1", Frequency: 0},
@@ -29,17 +29,17 @@ export class StatisticsDialogComponent implements OnInit {
   private chartData: IChartData[] = [];
 
   private svg: any;
-  private chartMargin = 50;
-  private chartWidth = 350;
+  private chartMargin = 10;
+  private chartWidth = 260;
   private chartHeight = 200;
 
   /** calculated using the largest guess frequency rounded to next number divisible by 10 */
   private maxYAxisPoint: number = 0;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { 
-      gamesPlayed: string, 
-      gamesWon: string, 
+    @Inject(MAT_DIALOG_DATA) public data: {
+      gamesPlayed: string,
+      gamesWon: string,
       winStreak: string,
       maxStreak: string,
       guessAmountForWin: guessAmount
@@ -81,7 +81,7 @@ export class StatisticsDialogComponent implements OnInit {
 
     /** sets the last point on the chart's y axis */
     this.maxYAxisPoint = Math.trunc(maxVal / 10) * 10 + 10;
-  
+
     if(this.maxYAxisPoint > 30) this.chartHeight = 300;
   }
 

@@ -1,7 +1,7 @@
 @use "variables";
 
 .stats-dialog {
-    width: 500px;
+    max-width: 400px;
     background-color: variables.$main-bg-color;
     color: variables.$main-text-white;
 
@@ -14,7 +14,7 @@
             border: none;
             outline: none;
             cursor: pointer;
-            
+
             mat-icon {
                 color: variables.$main-text-white;
                 height: 24px;
@@ -22,7 +22,7 @@
             }
         }
     }
-    
+
     .stats-title,
     .stats-heading {
         text-align: center;
