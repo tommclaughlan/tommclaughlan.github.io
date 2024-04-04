@@ -1,0 +1,21 @@
+<nav class="nav-bar">
+    <div class="nav-left-side">
+        <button (click)="openTutorialDialog()" mat-icon-button aria-label="Button with a question mark icon">
+            <mat-icon svgIcon="questionMark"></mat-icon>
+        </button>
+    </div>
+    <div class="nav-center">
+      <img class="nav-icon" src="assets/images/new-logo.png">
+        <h1 class="nav-title">Borodle</h1>
+      <img class="nav-icon" src="assets/images/old-logo.png">
+<!--        <span class="unlimited-text">Unlimited</span>-->
+    </div>
+    <div class="nav-right-side">
+        <button (click)="openSettingsDialog()" mat-icon-button aria-label="Button with settings cog icon">
+            <mat-icon svgIcon="settings"></mat-icon>
+        </button>
+        <button (click)="openStatsDialog()" mat-icon-button aria-label="Button with bar chart for statistics">
+            <mat-icon>bar_chart</mat-icon>
+        </button>
+    </div>
+</nav>

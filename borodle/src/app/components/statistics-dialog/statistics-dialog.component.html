@@ -1,0 +1,37 @@
+<div class="stats-dialog">
+    <div class="stats-head">
+        <button
+            mat-icon-button
+            class="close-stats-btn"
+            aria-label="Close button"
+            [mat-dialog-close]>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <h2 class="stats-title">STATISTICS</h2>
+    <div *ngIf="data" class="stat-numbers">
+        <div>
+            <p class="stat-score">{{ data.gamesPlayed }}</p>
+            <p class="stat-label">Played</p>
+        </div>
+        <div>
+            <p class="stat-score">{{ winPercentage }}</p>
+            <p class="stat-label">Win %</p>
+        </div>
+        <div>
+            <p class="stat-score">{{ data.maxStreak }}</p>
+            <p class="stat-label">Max Streak</p>
+        </div>
+        <div>
+            <p class="stat-score">{{ data.winStreak }}</p>
+            <p class="stat-label">Current Streak</p>
+        </div>
+    </div>
+
+    <h3 *ngIf="data" class="stats-heading">GUESS DISTRIBUTION</h3>
+    <figure id="barchart"></figure>
+
+    <div *ngIf="!data">
+        <p>We're sorry, but we cannot find your stats at this time.</p>
+    </div>
+</div>

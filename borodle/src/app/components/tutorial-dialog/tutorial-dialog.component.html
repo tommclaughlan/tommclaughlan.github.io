@@ -1,0 +1,35 @@
+<div class="tutorial-dialog">
+    <div class="tutorial-header">
+        <div class="placeholder"></div>
+        <h2 class="tutorial-title">HOW TO PLAY</h2>
+        <button
+            mat-icon-button
+            class="close-tutorial-btn"
+            aria-label="Close button"
+            [mat-dialog-close]>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="tutorial-directions">
+        <p>Guess the WORDLE in six tries.</p>
+        <p>Each guess must be a valid six-letter Boro player (past or present). Hit the enter button to submit.</p>
+        <p>After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="tutorial-examples">
+        <p>Examples</p>
+        <div class="tut-grid-row-container">
+            <grid-row-example [wordExampleObject]="wordExamples[0]"></grid-row-example>
+            <p>The letter B is in the word and in the correct spot.</p>
+        </div>
+        <div class="tut-grid-row-container">
+            <grid-row-example [wordExampleObject]="wordExamples[1]"></grid-row-example>
+            <p>The letter R is in the word but in the wrong spot.</p>
+        </div>
+        <div class="tut-grid-row-container">
+            <grid-row-example [wordExampleObject]="wordExamples[2]"></grid-row-example>
+            <p>The letter I is not in the word in any spot.</p>
+        </div>
+    </div>
+</div>
