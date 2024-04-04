@@ -1,8 +1,23 @@
 <div class="keyboard">
-    <key *ngFor="let key of keyList" [key]="key" (keyClick)="keyClick($event)"></key>
-    <div class="backspace-btn-container">
-        <button class="backspace-btn" (click)="backspaceClick()">
-            <mat-icon svgIcon="backspace" aria-label="Settings"></mat-icon>
-        </button>
+  <div class="row">
+    <key *ngFor="let key of keyRow1" [key]="key" (keyClick)="keyClick($event)"></key>
+  </div>
+  <div class="row">
+    <div class="spacer"></div>
+    <key *ngFor="let key of keyRow2" [key]="key" (keyClick)="keyClick($event)"></key>
+    <div class="spacer"></div>
+  </div>
+  <div class="row">
+    <div class="enter-btn-container">
+      <button class="enter-btn" (click)="enterClick()">
+        ENTER
+      </button>
     </div>
+    <key *ngFor="let key of keyRow3" [key]="key" (keyClick)="keyClick($event)"></key>
+    <div class="backspace-btn-container">
+      <button class="backspace-btn" (click)="backspaceClick()">
+        <mat-icon svgIcon="backspace" aria-label="Settings"></mat-icon>
+      </button>
+    </div>
+  </div>
 </div>

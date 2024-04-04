@@ -12,12 +12,12 @@
     box-sizing: border-box;
 
     .nav-title {
-        font-size: 2.25rem;
+        font-size: 1.5rem;
     }
 
     .nav-icon {
-        height: 45px;
-        padding: 20px;
+        height: 30px;
+        padding: 10px;
     }
 
     .unlimited-text {
@@ -44,4 +44,14 @@
         border: none;
         cursor: pointer;
     }
+}
+
+@media screen and (min-width: variables.$breakpoint-width) {
+  .nav-title {
+    font-size: 2.25rem;
+  }
+  .nav-icon {
+    height: 45px;
+    padding: 20px;
+  }
 }

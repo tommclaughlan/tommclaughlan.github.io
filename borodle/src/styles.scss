@@ -17,8 +17,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     &.correct-guess {
         color: variables.$green-correct;
-    } 
-    
+    }
+
     &.incorrect-guess {
         color: #C03F5D;
     }

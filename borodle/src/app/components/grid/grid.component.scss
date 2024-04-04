@@ -5,7 +5,7 @@
     margin: 0 auto;
     padding: 0.5rem 1rem;
 
-    @media screen and (min-height: variables.$breakpoint-height) {
+    @media screen and (min-width: variables.$breakpoint-width) {
         padding: 2rem 1rem;
     }
 }
