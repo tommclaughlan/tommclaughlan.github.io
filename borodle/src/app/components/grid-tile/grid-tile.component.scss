@@ -5,15 +5,20 @@
     justify-content: center;
     align-items: center;
     border: 2px solid variables.$main-gray;
-    height: 40px;
-    width: 40px;
+    height: 60px;
+    width: 60px;
     margin: 0.2rem;
     color: variables.$main-text-white;
     font-weight: 500;
 
-    @media screen and (min-width: variables.$breakpoint-width) {
-        height: 60px;
-        width: 60px;
+    @media all and (max-width: variables.$breakpoint-width) {
+        height: 40px;
+        width: 40px;
+    }
+
+    @media all and (max-height: variables.$breakpoint-height) {
+      height: 40px;
+      width: 40px;
     }
 }
 

@@ -11,13 +11,15 @@ interface KeyState {
   guessedWord: string;
   currentWord:  string;
   currentRow: number;
+  ended: boolean;
 }
 
-const initialState = {
+const initialState: KeyState = {
   guessedWordsList: [],
   guessedWord: "",
   currentWord: "",
-  currentRow: 0
+  currentRow: 0,
+  ended: false
 }
 
 enum GameRules {
@@ -154,7 +156,8 @@ export class MainService {
       ...this.state,
       currentWord: currentWord,
       guessedWordsList: guessedWords,
-      currentRow: guessedWords.length
+      currentRow: guessedWords.length,
+      ended: false
     });
   }
 
@@ -236,6 +239,7 @@ export class MainService {
    */
   protected setAddedLetter(key: string) {
     if(this.state.guessedWord.length === GameRules.WordLength) return;
+    if(this.state.ended) return;
 
     // update current word with new letter
     const updatedWord = this.state.guessedWord + key
@@ -252,6 +256,7 @@ export class MainService {
    */
   protected setRemoveLetter() {
     if(this.state.guessedWord.length === 0) return;
+    if(this.state.ended) return;
 
     // update current word with removing last letter
     const { guessedWord } = this.state;
@@ -281,7 +286,7 @@ export class MainService {
       });
 
       return;
-    };
+    }
 
     const gameResult = guessedWord === currentWord;
     const guessAttemptNum = currentRow + 1;
@@ -289,13 +294,13 @@ export class MainService {
     // if we guess the correct word or we are making our last submit / guess - the game is done
     if(!!gameResult || guessAttemptNum === GameRules.RowAmount) {
       // open dialog box with stats, congrats message, update local storage with win, games played, set a new word, reset state
-      // this.resetState();
-      // this.generateWord();
+
       this._state$.next({
         guessedWordsList: [...guessedWordsList, guessedWord],
         guessedWord: "",
         currentWord: currentWord,
-        currentRow: currentRow + 1
+        currentRow: currentRow + 1,
+        ended: true
       });
 
       this.submitGame(gameResult, guessAttemptNum);
@@ -313,7 +318,8 @@ export class MainService {
         guessedWordsList: [...guessedWordsList, guessedWord],
         guessedWord: "",
         currentWord: currentWord,
-        currentRow: nextRow
+        currentRow: nextRow,
+        ended: false
       });
     }
   }
@@ -375,7 +381,8 @@ export class MainService {
       guessedWordsList: [],
       guessedWord: "",
       currentWord: "",
-      currentRow: 0
+      currentRow: 0,
+      ended: false
     });
   }
 }
