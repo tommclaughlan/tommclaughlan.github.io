@@ -1,6 +1,4 @@
 import { Component, OnInit , Input} from '@angular/core';
-import { Observable } from 'rxjs';
-import { combineLatest, map } from 'rxjs/operators';
 import { MainService } from '../main/main.service';
 
 @Component({
@@ -13,9 +11,11 @@ export class GridRowComponent implements OnInit {
 
   public chars: number[] = [];
 
-  constructor() { }
+  constructor(private mainService: MainService) { }
 
   ngOnInit(): void {
-    this.chars = Array(6).fill(0);
+    this.mainService.currentWord$.subscribe(word => {
+      this.chars = Array(word.length).fill(0);
+    });
   }
 }

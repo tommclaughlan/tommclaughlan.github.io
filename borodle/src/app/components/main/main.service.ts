@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { wordBank } from "../../wordBank";
+import { wordBank, wordBank7 } from "../../wordBank";
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StatisticsDialogComponent } from '../statistics-dialog/statistics-dialog.component';
@@ -11,6 +11,7 @@ interface KeyState {
   guessedWord: string;
   currentWord:  string;
   currentRow: number;
+  wordBank: string[];
   ended: boolean;
 }
 
@@ -19,6 +20,7 @@ const initialState: KeyState = {
   guessedWord: "",
   currentWord: "",
   currentRow: 0,
+  wordBank: wordBank,
   ended: false
 }
 
@@ -157,12 +159,25 @@ export class MainService {
       currentWord: currentWord,
       guessedWordsList: guessedWords,
       currentRow: guessedWords.length,
-      ended: false
+      ended: false,
+      wordBank: currentWord.length == 6 ? wordBank : wordBank7
     });
   }
 
   private generateWord() {
-    const word = wordBank[Math.floor(Math.random() * wordBank.length)];
+    if (Math.random() < 0.5) {
+      this._state$.next({
+        ...this.state,
+        wordBank: wordBank7
+      });
+    } else {
+      this._state$.next({
+        ...this.state,
+        wordBank: wordBank
+      });
+    }
+
+    const word = this.state.wordBank[Math.floor(Math.random() * this.state.wordBank.length)];
 
     const usedWordsList = JSON.parse(localStorage.getItem("usedWordsList") as string);
 
@@ -238,7 +253,7 @@ export class MainService {
    * add a letter to the user's guessed word
    */
   protected setAddedLetter(key: string) {
-    if(this.state.guessedWord.length === GameRules.WordLength) return;
+    if(this.state.guessedWord.length === this.state.currentWord.length) return;
     if(this.state.ended) return;
 
     // update current word with new letter
@@ -276,9 +291,9 @@ export class MainService {
   protected submitWord() {
     const { guessedWord, currentWord, currentRow, guessedWordsList } = this.state
 
-    if(guessedWord.length !== GameRules.WordLength) return;
+    if(guessedWord.length !== this.state.currentWord.length) return;
 
-    const validWord = wordBank.includes(guessedWord);
+    const validWord = this.state.wordBank.includes(guessedWord);
     if(!validWord) {
       this.snackbar.open("Not in word list", "Close", {
         panelClass: ["game-result-notif"],
@@ -296,6 +311,7 @@ export class MainService {
       // open dialog box with stats, congrats message, update local storage with win, games played, set a new word, reset state
 
       this._state$.next({
+        ...this.state,
         guessedWordsList: [...guessedWordsList, guessedWord],
         guessedWord: "",
         currentWord: currentWord,
@@ -315,6 +331,7 @@ export class MainService {
       const nextRow = currentRow + 1;
 
       this._state$.next({
+        ...this.state,
         guessedWordsList: [...guessedWordsList, guessedWord],
         guessedWord: "",
         currentWord: currentWord,
