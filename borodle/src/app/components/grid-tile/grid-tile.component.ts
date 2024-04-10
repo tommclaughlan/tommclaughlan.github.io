@@ -48,7 +48,7 @@ export class GridTileComponent implements OnInit {
         let occurrences = 0;
         let guessedWordIdxs = [];
         for (let i=0; i<this.rowWord.length; i++) {
-          if (currentWord[i] === this.tileLetter && this.rowWord[i] !== currentWord[i]) {
+          if (currentWord[i] === this.tileLetter) {
               occurrences++;
           }
           else if (this.rowWord[i] === this.tileLetter) {
